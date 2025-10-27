@@ -64,7 +64,7 @@
 									 <line x1="15" y1="9" x2="15.01" y2="9"></line>
 								 </svg>
 							 </div>
-							 <p class="cart-empty">You have no items in your wishlists</p>
+							 <p class="cart-empty">Oops! Your wishlist is empty—start adding your favorites.</p>
                    </div>
 				   
 				@endif

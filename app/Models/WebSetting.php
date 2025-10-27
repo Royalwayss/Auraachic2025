@@ -17,7 +17,7 @@ class WebSetting extends Model{
 	public static function settings(){
 		$websettings['site_logo'] = asset('front/assets/img/logo.png');
 		$websettings['site_name'] = config('constants.project_name');
-		$websettings['site_email'] = 'auraachicin@gmail.com';
+		$websettings['site_email'] = 'Support@auraachic.in';
 		$websettings['admin_emails'] =array('rwpttech@gmail.com'); 
 		$websettings['admin_bcc_emails'] = [];
 		return $websettings;

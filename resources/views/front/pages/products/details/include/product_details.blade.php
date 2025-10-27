@@ -10,7 +10,7 @@
 				     <a class="product-tab-link tab-link" href="#pshipping" data-bs-toggle="tab">Wash care instructions</a>
                      @endif
 					 @if(!empty(trim($productdetails['key_features'])))
-					<a class="product-tab-link tab-link" href="#pstyle" data-bs-toggle="tab">Why this style </a>
+					<a class="product-tab-link tab-link" href="#pstyle" data-bs-toggle="tab">What Makes It Special </a>
                      @endif
 					<a class="product-tab-link tab-link" href="#preview" data-bs-toggle="tab">Reviews</a>
                     <a class="product-tab-link tab-link" href="#custom" data-bs-toggle="tab">Need a custom fit </a>
@@ -121,7 +121,7 @@
                                 </fieldset>
 								@php echo from_input_error_message('review_title') @endphp 
                                 <fieldset>
-                                    <label class="label" id="charCountDisplay">Body of Review (2000)*</label>
+                                    <label class="label" id="charCountDisplay">Share Your Experience</label>
                                     <textarea cols="30" rows="5" name="review" id="product_review_message" placeholder="Write your comments here" maxlength="2000"></textarea>
                                     @php echo from_input_error_message('review') @endphp
 								</fieldset>

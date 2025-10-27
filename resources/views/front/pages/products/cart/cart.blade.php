@@ -9,12 +9,15 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     margin-bottom: 10px;
+    max-height: 300px;
+    overflow-y: auto;
 }
+
 .couponHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 .couponSection {
     margin: 0 0 20px;
@@ -46,7 +49,7 @@ input-group {
     border: none;
     cursor: pointer;
     color: #3b386c;
-    font-size: 18px;
+    font-size: 16px;
 	border-radius: 13px;
 }
 .copyBtn .fa-check{ color:white; }

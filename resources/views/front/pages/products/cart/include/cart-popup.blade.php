@@ -69,7 +69,7 @@
                          <line x1="15" y1="9" x2="15.01" y2="9"></line>
                      </svg>
                  </div>
-                 <p class="cart-empty">You have no items in your cart</p>
+                 <p class="cart-empty">Oops! Your cart is empty right now.</p>
              </div>
 			 @endif
          </div>

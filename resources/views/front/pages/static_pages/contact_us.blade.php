@@ -30,7 +30,7 @@
                                     <div class="contact-item">
                                         <div class="contact-details">
                                             <h2 class="contact-title">Mail Address</h2>
-                                            <a class="contact-info" href="mailto:auraachicin@gmail.com">auraachicin@gmail.com</a>
+                                            <a class="contact-info" href="mailto:Support@auraachic.in">Support@auraachic.in</a>
                                         </div>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                     <div class="contact-item">
                                         <div class="contact-details">
                                             <h2 class="contact-title">Office Location</h2>
-                                            <p class="contact-info">Ludhiana, Punjab, India</p>
+                                            <p class="contact-info">Shankar road, Guru Vihar, Ludhiana</p>
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                     <div class="contact-item">
                                         <div class="contact-details">
                                             <h2 class="contact-title">Phone Number</h2>
-                                            <a class="contact-info" href="tel:+91 83329 83000">+91 83329 83000</a>
+                                            <a class="contact-info" href="tel:+91 80104 08050">+91 80104 08050</a>
                                         </div>
                                     </div>
                                 </div>

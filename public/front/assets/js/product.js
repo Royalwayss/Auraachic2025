@@ -3,10 +3,10 @@
 		var $myTextarea = $('#product_review_message');
 		var $charCountDisplay = $('#charCountDisplay');
 		var maxLength = $myTextarea.attr('maxlength'); 
-		$charCountDisplay.text('Body of Review : (' + $myTextarea.val().length + ' / ' + maxLength + ')');
+		$charCountDisplay.text('Share Your Experience : (' + $myTextarea.val().length + ' / ' + maxLength + ')');
 		$myTextarea.on('input', function () {
 			var currentLength = $(this).val().length;
-			$charCountDisplay.text('Body of Review : (' + currentLength + ' / ' + maxLength + ')');
+			$charCountDisplay.text('Share Your Experience : (' + currentLength + ' / ' + maxLength + ')');
 			if (currentLength >= maxLength) {
 				$charCountDisplay.css('color', 'red');
 			} else {

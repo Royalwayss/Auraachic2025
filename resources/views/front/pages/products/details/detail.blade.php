@@ -38,8 +38,9 @@
                      <del class="product-price compare-price">₹{{round($productdetails['product_price'],2)}}</del>
                      @endif
                      @if($productdetails['product_discount']>0)
-                     <span class="text-include">{{ $productdetails['product_discount'] }}% off (Incl. of all taxes)</span>
+                     <span class="text-include dtlDiscount">{{ $productdetails['product_discount'] }}% off </span>
                      @endif
+                     <span class="d-block tax">(Incl. of all taxes)</span>
                   </div>
                   @if(!empty($avgStarRating))
 				  <div class="product-rating d-flex align-items-center mb-3">
