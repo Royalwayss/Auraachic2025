@@ -880,7 +880,7 @@ class Cart extends Model
         $grandtotalCOD = $subtotal + $totalGST;
 
         // 5% Discount for Prepaid Orders
-        $prepaidDiscount = round($subtotal * 5 / 100, 2);
+        $prepaidDiscount = 0; //round($subtotal * 5 / 100, 2);
         $subtotalPrepaid = $subtotal - $prepaidDiscount;
         
         // GST is recalculated on the new subtotal for Prepaid
@@ -928,7 +928,7 @@ class Cart extends Model
         }
 
         // 5% Discount for Prepaid Orders
-        $prepaidDiscount = round($subtotal * 5 / 100, 2);
+        $prepaidDiscount = 0; //round($subtotal * 5 / 100, 2);
         $subtotalPrepaid = $subtotal - $prepaidDiscount;
 
         return [
@@ -972,7 +972,7 @@ class Cart extends Model
         }
 
         // 5% Discount for Prepaid Orders
-        $prepaidDiscount = round($subtotal * 5 / 100, 2);
+        $prepaidDiscount = 0; //round($subtotal * 5 / 100, 2);
         $subtotalPrepaid = $subtotal - $prepaidDiscount;
 
         // Shipping Charges Calculation
@@ -1040,7 +1040,7 @@ class Cart extends Model
         }
 
         // Prepaid Discount (5%)
-        $prepaidDiscount = round(($subtotal - $discount) * 5 / 100, 2);
+        $prepaidDiscount = 0; //round(($subtotal - $discount) * 5 / 100, 2);
         $subtotalPrepaid = $subtotal - $discount - $prepaidDiscount;
 
         // Dynamic Shipping Charges

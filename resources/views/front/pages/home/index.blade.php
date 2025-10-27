@@ -286,7 +286,7 @@
                         <img class="icon-trusted" src="{{ asset('front/assets/img/trusted/1.png') }}" alt="icon-1" title="icon-1">
                      </div>
                      <div class="trusted-content">
-                        <h2 class="heading_18 trusted-heading">Free Shipping & Exchange</h2>
+                        <h2 class="heading_18 trusted-heading">Free Shipping <!--& Exchange--></h2>
                         <p class="text_16 trusted-subheading trusted-subheading-2">On all order</p>
                      </div>
                   </div>

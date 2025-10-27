@@ -42,6 +42,7 @@
         description: 'Auraachic Order Payment',
         order_id: "<?php echo $orderid;?>",
         capture:1,
+		"image": "{{ asset('front/assets/img/logo.png') }}",
         handler: demoSuccessHandler,
         prefill: {
             "name": "{{Auth::user()->name}}",
