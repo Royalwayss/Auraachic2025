@@ -83,7 +83,7 @@ input-group {
 </div> 
 <!-- breadcrumb end -->
 <main id="MainContent" class="cartpage content-for-layout">
-    <div class="cart-page">
+   <div class="contact-page">
         <div class="container billing-pages">
              <div class="section-header mb-3">
                 <h2 class="section-heading">Your Cart</h2>

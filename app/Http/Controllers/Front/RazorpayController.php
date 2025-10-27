@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Razorpay;
+use App\Models\Mails;
 use Session;
 use Illuminate\Support\Facades\Mail;
 use App\Models\OrdersHistory;
@@ -53,8 +54,8 @@ class RazorpayController extends Controller
 	
 	 public function rozerpay_webhook(Request $request)
     {
-        
-		
+        Log::info('Razorpay webhook trigger', ['status' => true]);
+		return response()->json(['status' => 'success']); exit; die();
 		$data = $request->getContent();
         $signature = $request->header('X-Razorpay-Signature');
          $razorpay_credentials = Razorpay::credentials();  
@@ -110,32 +111,24 @@ class RazorpayController extends Controller
 	
     public function dopayment(Request $request) {
         if($request->ajax()){
-             return response()->json([
-                    'status'=>true,
-                ]); exit;
-			
-			
+             
 			$data = $request->all();
             $details = $this->order->where('razorpay_order_id',$data['data']['razorpay_order_id'])->orderby('id','DESC')->first();
             if($details){
                 $raorpayPaymentId = $data['data']['razorpay_payment_id'];
                 $razorpaySignature = $data['data']['razorpay_signature'];
-                //check Payment details
+                
+				//check Payment details
                 $this->order->where('razorpay_order_id',$data['data']['razorpay_order_id'])->update(['razorpay_payment_id'=>$raorpayPaymentId,'payment_status'=>'captured','signature'=>$razorpaySignature,'order_status'=>'Payment Captured']);
                 OrdersHistory::where('order_id',$details->id)->delete();
                 $requestdata['order_status'] = 'Payment Captured';
                 $requestdata['comments'] =  'Payment has been received';
                 $requestdata['order_id'] =  $details->id;
                 OrdersHistory::create($requestdata);
-                if(!empty(Auth::user()->mobile)){
-                    /*$smsdetails['mobile']  = Auth::user()->mobile;
-                    $smsdetails['message'] = "Dear ".Auth::user()->name. ", your order no.".$details->id." has been successfully placed. We shall inform once your order has been dispatched. For any queries, write to us at ";
-                    $smsdetails['dlttempid'] = '';
-                    sendSms($smsdetails);*/
-                }
-                if(env('MAIL_MODE') =="live"){
-                    
-                }
+                
+                
+                    Mails::orderMail($details->id);
+                
                 return response()->json([
                     'status'=>true,
                 ]);
@@ -229,7 +222,7 @@ class RazorpayController extends Controller
     }
 
     public function cancel(){
-        return view('front.razorpay.cancel');
+        return view('front.pages.products.razorpay.cancel');
     } 
 
 }

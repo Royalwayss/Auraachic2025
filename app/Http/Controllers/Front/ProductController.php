@@ -1028,7 +1028,7 @@ class ProductController extends Controller
         }
     }
 
-    public function thanks(){ 
+    public function thanks(){  
         if(Session::has('orderid')){
             Cart::where('user_id',Auth::user()->id)->delete();
             $orderdetails = Order::with('order_products')->where('id',Session::get('orderid'))->first();

@@ -13,9 +13,9 @@ class Razorpay extends Model
      {
 		 $mode = env('PAY_MODE');
 		 if($mode == 'live'){ 
-			 $RAZORPAY_KEY = '';
-			 $RAZORPAY_SECRET_KEY = '';
-			 $RAZORPAY_WEBHOOK_SECRET = '';
+			 $RAZORPAY_KEY = 'rzp_live_RSvZnE6Wunie61';
+			 $RAZORPAY_SECRET_KEY = '7EDR3WaPr1NlUsq3oDyONG1P';
+			 $RAZORPAY_WEBHOOK_SECRET = 'Auraachic@#$%255';
 		 }else{
 			 $RAZORPAY_KEY = 'rzp_test_RWtRDaww0tKpJ9';
 			 $RAZORPAY_SECRET_KEY = '9SbPk3m6CyCDyf6wqCsDLBET';

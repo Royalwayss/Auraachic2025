@@ -8,6 +8,7 @@
             <div class="row text-center mb-5">
                 <img src="{{ asset('front/assets/img/thankyou.gif') }}" alt="thankyou" class="img-fluid">
                 <h2 class="text-center text-black">Thank You</h2>
+				
                 <div class="order-no"><a href="{{ route('account',['orders']) }}?id={{ $orderdetails['id'] }}">Order ID: {{ $orderdetails['id'] }}</a></div>
                 <div >Grand Total: <strong>₹ {{ amount_format($orderdetails['grand_total']) }}</strong></div>
                 @if($orderdetails['payment_method'] == 'COD')
