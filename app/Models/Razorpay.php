@@ -13,13 +13,13 @@ class Razorpay extends Model
      {
 		 $mode = env('PAY_MODE');
 		 if($mode == 'live'){ 
-			 $RAZORPAY_KEY = 'rzp_live_RSvZnE6Wunie61';
-			 $RAZORPAY_SECRET_KEY = '7EDR3WaPr1NlUsq3oDyONG1P';
-			 $RAZORPAY_WEBHOOK_SECRET = 'Auraachic@#$%255';
+			 $RAZORPAY_KEY = env('LIVE_RAZORPAY_KEY'); 
+			 $RAZORPAY_SECRET_KEY = env('LIVE_RAZORPAY_SECRET_KEY'); 
+			 $RAZORPAY_WEBHOOK_SECRET = env('LIVE_RAZORPAY_WEBHOOK_SECRET'); 
 		 }else{
-			 $RAZORPAY_KEY = 'rzp_test_RWtRDaww0tKpJ9';
-			 $RAZORPAY_SECRET_KEY = '9SbPk3m6CyCDyf6wqCsDLBET';
-			 $RAZORPAY_WEBHOOK_SECRET = 'Auraachic@#$%25';
+			 $RAZORPAY_KEY = env('TEST_RAZORPAY_KEY'); 
+			 $RAZORPAY_SECRET_KEY = env('TEST_RAZORPAY_SECRET_KEY'); 
+			 $RAZORPAY_WEBHOOK_SECRET = env('TEST_RAZORPAY_WEBHOOK_SECRET'); 
 		 }
 		 
 		 

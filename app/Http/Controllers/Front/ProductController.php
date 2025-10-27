@@ -448,7 +448,7 @@ class ProductController extends Controller
         $discounted_price = sprintf("%.2f",$discounted_price);*/
 
         $product_price = $proPrice['price'];
-        $final_price = $discounted_price; 
+        $final_price = $product_price; 
         $product_price_details = '';
 		$product_price_details = 'MRP';
 		$product_price_details .= '<span class="product-price regular-price product_final_price">&nbsp;₹'.round($final_price,2).'&nbsp;</span>';
