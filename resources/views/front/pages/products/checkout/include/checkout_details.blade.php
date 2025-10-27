@@ -69,9 +69,9 @@
 
                                    @foreach($paymentMethods as $paymentMethod) 
                                     <div class="form__radio-group">
-                                        <input id="{{ $paymentMethod['payment_method'] }}" type="radio" class="form__radio-input" name="paymentMode"
-                                            value="{{ $paymentMethod['payment_method'] }}" >
-                                        <label for="{{ $paymentMethod['payment_method'] }}" class="form__radio-label">
+                                        <input id="{{ $paymentMethod['value'] }}" type="radio" class="form__radio-input" name="paymentMode"
+                                            value="{{ $paymentMethod['value'] }}" >
+                                        <label for="{{ $paymentMethod['value'] }}" class="form__radio-label">
                                             <span class="form__radio-button"></span>
                                             <span class="form__radio-label-text">{{ $paymentMethod['label'] }}</span>
                                         </label>

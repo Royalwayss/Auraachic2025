@@ -201,6 +201,12 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
 
     });
+	
+	Route::match(['get', 'post'],'rozerpay_webhook', [RazorpayController::class, 'rozerpay_webhook']);
+	
+	
+	
+	
 });
 
 Route::namespace('App\Http\Controllers\Front')->group(function(){
@@ -403,6 +409,7 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
         Route::match(['get', 'post'], '/razorpay-payment', [RazorpayController::class, 'razorpayPayment'])->name('razorpay-payment');
         Route::post('dopayment', [RazorpayController::class, 'dopayment'])->name('dopayment');
         Route::get('cancel', [RazorpayController::class, 'cancel']);
+        
 
         // Cancel Order from User
         Route::get('/cancel-order/{id}',[CancelController::class,'cancelOrder'])->name('cancelOrder');

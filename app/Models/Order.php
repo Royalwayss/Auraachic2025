@@ -13,7 +13,7 @@ use DateTime;
 class Order extends Model
 {
     //
-    protected $fillable = ['id','user_id','payment_method','payment_gateway','country_code','currency','currency_symbol','razorpay_order_id','razorpay_payment_id','signature','coupon_code','coupon_discount','prepaid_discount','credit','shipping_charges','cod_charges','gst','sub_total','grand_total','payment_status','order_status','comments','gift_id','gift_name','gift_mrp','delivery_method','awb_number','invoice_no','invoice_date','shipment_response','shipment_transaction_identifier','shipment_identification_number','ip_address','created_at','updated_at','manifest_resp','gst_number','customer_number','company_name','taxes','total_weight'];
+    protected $fillable = ['id','user_id','txn_id','payment_method','payment_gateway','country_code','currency','currency_symbol','razorpay_order_id','razorpay_payment_id','signature','coupon_code','coupon_discount','prepaid_discount','credit','shipping_charges','cod_charges','gst','sub_total','grand_total','payment_status','order_status','comments','gift_id','gift_name','gift_mrp','delivery_method','awb_number','invoice_no','invoice_date','shipment_response','shipment_transaction_identifier','shipment_identification_number','ip_address','created_at','updated_at','manifest_resp','gst_number','customer_number','company_name','taxes','total_weight'];
 
     public function getuser(){
     	return $this->belongsTo('App\Models\User','user_id');

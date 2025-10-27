@@ -6,7 +6,7 @@
 <script src="{{ asset('front/assets/js/account.js') }}?v=1.2"></script>
 @endif
 @if($route_name == 'listing' || $route_name == 'product' || $route_name ==  'cart' || $route_name == 'checkout')
-<script src="{{ asset('front/assets/js/product.js') }}?v=1.2"></script>
+<script src="{{ asset('front/assets/js/product.js') }}?v=1.5"></script>
 @endif
 <script src="{{ asset('front/assets/js/all.min.js') }}"></script>
 <script src="{{ asset('front/assets/js/sweetalert2.js') }}"></script> 
