@@ -221,7 +221,7 @@
    </div>
    <!-- single banner end -->
    @endif
-   @if(!empty($single_banner))
+   @if(!empty($instagram_banners))
    <!-- instagram start --> 
    <div class="instagram-section mt-100 overflow-hidden home-section">
       <div class="instagram-inner">
