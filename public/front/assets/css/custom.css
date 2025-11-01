@@ -81,3 +81,12 @@
    justify-content: center !important;
 }
  }
+ 
+ 
+ .disabled-link {
+  pointer-events: none;
+  cursor: default;
+  color: gray;
+  text-decoration: none;
+  opacity: 0.6;
+}

@@ -54,31 +54,35 @@ class Category extends Model
                 $query->with('subcategories');
             }]);
 			
-		if($catseo	!= 'new-arrival' && $catseo	!= 'featured-collection' && $catseo	!= 'shop-all' ){
+		//if($catseo	!= 'new-arrival' && $catseo	!= 'featured-collection' && $catseo	!= 'shop-all' ){
 			$getCatdetail =	$getCatdetail->where('url',$catseo);
-		}
+		//}
 			
 			
 		$getCatdetail =	$getCatdetail->where('status',1)->select('id','category_name','category_image','description','url','meta_title','meta_keywords','meta_description','parent_id','category_image','size_chart')->first();
         $getCatdetail = json_decode(json_encode($getCatdetail),true); 
-        if(empty($getCatdetail)){
-            $resp = array('status'=>false);
-            return $resp;
-        }
-		
-		if(!empty($getCatdetail['parent_id'])){
-			$parentCategoryCount = Category::where('id',$getCatdetail['parent_id'])->where('status',1)->count();
-		    if(empty($parentCategoryCount)){
-					$resp = array('status'=>false);
-					return $resp;
+        
+		if($catseo	!= 'new-arrival' && $catseo	!= 'featured-collection' && $catseo	!= 'shop-all' ){
+			if(empty($getCatdetail)){
+               $resp = array('status'=>false);
+               return $resp;
             }
+			
+			if(!empty($getCatdetail['parent_id'])){
+				$parentCategoryCount = Category::where('id',$getCatdetail['parent_id'])->where('status',1)->count();
+				if(empty($parentCategoryCount)){
+						$resp = array('status'=>false);
+						return $resp;
+				}
+			}
 		}
 		
         $catids =array();
-        $catids[] = $getCatdetail['id'];
+       
 
         
 		if($catseo	!= 'new-arrival' && $catseo	!= 'featured-collection' && $catseo	!= 'shop-all' ){
+			 $catids[] = $getCatdetail['id'];
 			if($getCatdetail['parent_id']==0){
 				
 				$breadcrumbs = '<li><a href="'.url($getCatdetail['url']).'" class="active">'.$getCatdetail['category_name'].'</a></li>';
@@ -103,15 +107,18 @@ class Category extends Model
 			$breadcrumbs = '<li><a href="'.$cat_url.'" class="active">'.$cat_name.'</a></li>';
 			
 		}
-
+        if(!empty($getCatdetail)){
         foreach($getCatdetail['subcategories'] as $subcat){
             $catids[] = $subcat['id'];
             foreach($subcat['subcategories'] as $subsubcat){
                 $catids[] = $subsubcat['id'];
             }
         }
+        }
+		
+		
         $resp = array('status'=>true,'catids'=>$catids,'catdetail'=>$getCatdetail,'breadcrumbs'=>$breadcrumbs);
-        /*echo "<pre>"; print_r($resp); die;*/
+        
         return $resp;
     }
 

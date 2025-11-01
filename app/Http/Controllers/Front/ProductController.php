@@ -66,7 +66,7 @@ class ProductController extends Controller
 			$listing_type = "Categories";
             $catids = $response['catids'];
             //dd($catids);
-            $getfilters = ProductsFilter::getfilters($catids);
+            $getfilters = ProductsFilter::getfilters($catids); 
             $topfilters = ProductsFilter::topfilters($catids);
             $getproducts = Product::with(['product_image'])->where('products.stock','>',0)->where('products.status',1)->join('categories','categories.id','=','products.category_id')->join('products_attributes', 'products_attributes.product_id', '=', 'products.id')->where('products_attributes.stock', '>', 0)->select('products.*','categories.category_discount',DB::raw("(case when products.product_discount = 0 then categories.category_discount else  products.product_discount end ) as 'item_discount'"));
             
@@ -81,8 +81,14 @@ class ProductController extends Controller
 
                 $data = $request->all();
 
-                $getproducts = $getproducts->leftjoin('products_categories','products_categories.product_id','=','products.id')->join('categories as cats','cats.id','=','products_categories.category_id')->wherein('products_categories.category_id',$catids)->groupby('products_categories.product_id');
-
+                $getproducts = $getproducts->leftjoin('products_categories','products_categories.product_id','=','products.id')->join('categories as cats','cats.id','=','products_categories.category_id');
+				
+				if(!empty($catids)){
+				   $getproducts = $getproducts->wherein('products_categories.category_id',$catids); 
+                }
+				
+				
+				$getproducts = $getproducts->groupby('products_categories.product_id');
 				
 				if(isset($data['fabric']) && !empty($data['fabric'])){
                     $fabrics = $data['fabric'];
@@ -177,14 +183,17 @@ class ProductController extends Controller
              $pagination_links = $all_products['links']; 
             $products = $getproducts->appends(request()->except('page')); 
             //$users->appends(request()->input())->links();
-            $title = $response['catdetail']['meta_title'];
-            $meta_title = $response['catdetail']['meta_title'];
-            if(empty($title)){
-                $title = $response['catdetail']['category_name'];    
-                $meta_title = $response['catdetail']['category_name'];    
-            }
-            $meta_description = $response['catdetail']['meta_description'];
-            $meta_keyword = $response['catdetail']['meta_keywords'];
+
+            if(isset($response['catdetail']) && empty($response['catdetail']['meta_title'])){
+				$title = $response['catdetail']['meta_title'];
+				 $meta_title = @$response['catdetail']['meta_title'];  
+                 $meta_description = @$response['catdetail']['meta_description'];
+                 $meta_keyword = @$response['catdetail']['meta_keywords'];				 
+            }else{
+				$title = $meta_title = $meta_description = $meta_keyword = '';
+			}
+           
+            
             $catdetails  = $response['catdetail'];
             $breadcrumbs  = $response['breadcrumbs'];
             $total_products  = count($products);
