@@ -54,13 +54,13 @@ class Category extends Model
                 $query->with('subcategories');
             }]);
 			
-		if($catseo	!= 'new-arrival' && $catseo	!= 'featured-collection' ){
+		if($catseo	!= 'new-arrival' && $catseo	!= 'featured-collection' && $catseo	!= 'shop-all' ){
 			$getCatdetail =	$getCatdetail->where('url',$catseo);
 		}
 			
 			
 		$getCatdetail =	$getCatdetail->where('status',1)->select('id','category_name','category_image','description','url','meta_title','meta_keywords','meta_description','parent_id','category_image','size_chart')->first();
-        $getCatdetail = json_decode(json_encode($getCatdetail),true);
+        $getCatdetail = json_decode(json_encode($getCatdetail),true); 
         if(empty($getCatdetail)){
             $resp = array('status'=>false);
             return $resp;
@@ -78,7 +78,7 @@ class Category extends Model
         $catids[] = $getCatdetail['id'];
 
         
-		if($catseo	!= 'new-arrival' && $catseo	!= 'featured-collection' ){
+		if($catseo	!= 'new-arrival' && $catseo	!= 'featured-collection' && $catseo	!= 'shop-all' ){
 			if($getCatdetail['parent_id']==0){
 				
 				$breadcrumbs = '<li><a href="'.url($getCatdetail['url']).'" class="active">'.$getCatdetail['category_name'].'</a></li>';
@@ -93,6 +93,9 @@ class Category extends Model
 			if($catseo	== 'new-arrival'){
 				$cat_url = route('newarrival');
 				$cat_name = 'New Arrival';
+			}else if($catseo	== 'shop-all'){
+				$cat_url = route('shopall');
+				$cat_name = 'Shop All';
 			}else{
 				$cat_url = route('featuredcollection');
 				$cat_name = 'Featured Collection';

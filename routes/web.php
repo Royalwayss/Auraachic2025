@@ -243,6 +243,7 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
             Route::get('/'.$url,[ProductFrontController::class,'listing'])->name('listing');
         }
     }
+    Route::get('/shop-all',[ProductFrontController::class,'listing'])->name('shopall');
     Route::get('/new-arrival',[ProductFrontController::class,'listing'])->name('newarrival');
 	
     Route::get('/featured-collection',[ProductFrontController::class,'listing'])->name('featuredcollection');

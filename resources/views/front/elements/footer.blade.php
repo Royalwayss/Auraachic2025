@@ -44,7 +44,7 @@ $categories = Category::getCategories($type='Front');
                     <div class="col-xl-2 col-lg-2 col-md-6 col-12 footer-widget">
                         <div class="footer-widget-inner">
                             <h4 class="footer-heading d-flex align-items-center justify-content-between">
-                                <span>Products</span>
+                                <span>Our Collections</span>
                                 <span class="d-md-none">
                                     <svg class="icon icon-dropdown" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1"
@@ -54,7 +54,8 @@ $categories = Category::getCategories($type='Front');
                                 </span>
                             </h4>
                             <ul class="footer-menu list-unstyled mb-0 d-md-block">
-                                @foreach($categories as $category)
+                                 <li class="footer-menu-item"><a href="{{url('shop-all')}}">Shop All</a></li>
+								@foreach($categories as $category)
                                 <li class="footer-menu-item"><a href="{{url($category['url'])}}">{{
                                         $category['category_name'] }}</a></li>
                                 @endforeach

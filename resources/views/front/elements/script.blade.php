@@ -4,8 +4,8 @@
 <script src="{{ asset('front/assets/js/custom.js') }}?v=1.2"></script>
 @if($route_name == 'signin' || $route_name == 'signup' || $route_name == 'account' || $route_name == 'checkout')
 <script src="{{ asset('front/assets/js/account.js') }}?v=1.2"></script>
-@endif
-@if($route_name == 'listing' || $route_name == 'product' || $route_name ==  'cart' || $route_name == 'checkout')
+@endif 
+@if($route_name == 'shopall' || $route_name == 'newarrival' || $route_name == 'listing' || $route_name == 'product' || $route_name ==  'cart' || $route_name == 'checkout')
 <script src="{{ asset('front/assets/js/product.js') }}?v=1.5"></script>
 @endif
 <script src="{{ asset('front/assets/js/all.min.js') }}"></script>
