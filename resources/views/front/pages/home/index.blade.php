@@ -216,8 +216,10 @@
    <!-- single banner start -->
    <div class="single-banner-section mt-100 overflow-hidden">
       <div class="position-relative overlay">
-         <img class="single-banner-img" src="{{ asset('front/images/banners/'.$single_banner['image']) }}" title="{{ $single_banner['title'] }}" alt="{{ $single_banner['alt'] }}">
-      </div>
+         <a  @if(!empty($single_banner['link'])) href="{{ $single_banner['link'] }}" @else href="javascript:;"@endif>
+		 <img class="single-banner-img" src="{{ asset('front/images/banners/'.$single_banner['image']) }}" title="{{ $single_banner['title'] }}" alt="{{ $single_banner['alt'] }}">
+        </a>
+	  </div>
    </div>
    <!-- single banner end -->
    @endif

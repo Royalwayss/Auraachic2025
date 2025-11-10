@@ -30,7 +30,7 @@
                                     <div class="contact-item">
                                         <div class="contact-details">
                                             <h2 class="contact-title">Mail Address</h2>
-                                            <a class="contact-info" href="mailto:Support@auraachic.in">Support@auraachic.in</a>
+                                            <a class="contact-info" href="mailto:support@auraachic.in">support@auraachic.in</a>
                                         </div>
                                     </div>
                                 </div>

@@ -62,7 +62,7 @@ $categories = Category::getCategories($type='Front');
                             </ul>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-lg-2 col-md-6 col-12 footer-widget">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 footer-widget">
                         <div class="footer-widget-inner">
                             <h4 class="footer-heading d-flex align-items-center justify-content-between">
                                 <span>Get In Touch</span>
@@ -76,8 +76,8 @@ $categories = Category::getCategories($type='Front');
                             </h4>
                             <ul class="footer-menu list-unstyled mb-0 d-md-block">
                                 <li class="footer-menu-item">
-                                    <a href="mailto:Support@auraachic.in">
-                                        <i class="fa-solid fa-envelope me-2"></i> Support@auraachic.in
+                                    <a href="mailto:support@auraachic.in">
+                                        <i class="fa-solid fa-envelope me-2"></i> support@auraachic.in
                                     </a>
                                 </li>
                                 <li class="footer-menu-item">
