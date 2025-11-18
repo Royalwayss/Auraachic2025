@@ -68,8 +68,6 @@ class ShipRocket extends Model
 				$param2['billing_phone']=$billing_address['shipping_mobile'];
 				$param2['shipping_is_billing']=true; 
 				
-				
-				
 				foreach($products as $product_key=>$product){
 					
 					$param2['order_items'][$product_key]=
@@ -86,15 +84,12 @@ class ShipRocket extends Model
 				
 				
 				
-				if($orderDetails['payment_method'] == 'cod'){
+				if($orderDetails['payment_method'] == 'COD'){
 					$payment_method = 'cod';
 				}else{
 					$payment_method = 'Prepaid';
 				}
-				
-				
-				
-				
+			
 				$param2['payment_method']=$payment_method;
 				$param2['shipping_charges']=$orderDetails['shipping_charges']; 
 				$param2['giftwrap_charges']= 0;; 
