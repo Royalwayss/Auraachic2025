@@ -419,11 +419,14 @@ $(document).ready(function(){
 	$('#order_status').change(function() {    
         var order_status = $(this).val();
         if(order_status=="Shipped"){
-        	$("#delivery_method").show();
-        	$("#awb_number").show();
-        }else{
-        	$("#delivery_method").hide();
-        	$("#awb_number").hide();
+        	$("#Shipped-attr").show();
+			$("#pickrr-attribute").hide();
+        }else if(order_status=="Successful"){ 
+		    $("#Shipped-attr").hide();
+			$("#pickrr-attribute").show();
+		}else{
+        	$("#Shipped-attr").hide();
+			$("#pickrr-attribute").hide();
         }
     });
 
@@ -477,3 +480,105 @@ $(document).ready(function(){
 
 
 });
+
+function updateOrderStatus(){ 
+	if($("#order_status").val() == 'Shipped'){
+		
+			return true;
+		
+	}else if($("#order_status").val() == 'Successful'){
+		
+		 var err = '';
+		 var err_field = '';
+		 
+		 var weight = $("#weight").val();
+		 if( jQuery.isNumeric(weight.trim()) == false){
+			 $("#err-weight").html("The weight must be number");
+			 err = true;
+			 err_field = 'weight';
+			 $("#weight").attr('style', 'border-color:red'); 
+		 }else{
+			 
+			/* if(weight.trim() < '0.5' && weight.trim() != '0.5'){
+				 $("#err-weight").html("The weight must be greater than or equal to 0.5");
+				 err = true;
+				 if(err_field == '') { err_field = 'weight'; }
+				 $("#weight").attr('style', 'border-color:red');
+			 }else{ */
+				 $("#err-weight").empty();
+				 $("#weight").attr('style', 'border-color:');
+			/* }	*/		 
+		 }
+		 
+		 
+		 var length = $("#length").val();
+		 if( jQuery.isNumeric(length.trim()) == false){
+			 $("#err-length").html("The length must be number");
+			 err = true;
+			 if(err_field == '') { err_field = 'length'; }
+			 $("#length").attr('style', 'border-color:red'); 
+		 }else{
+			/* if(length.trim() < '0.5' && length.trim() != '0.5'){
+				 $("#err-width").html("The length must be greater than or equal to 0.5");
+				 err = true;
+				 if(err_field == '') { err_field = 'length'; }
+				 $("#length").attr('style', 'border-color:red');
+			 }else{  */
+				 $("#err-length").empty();
+				 $("#length").attr('style', 'border-color:'); 
+			/* } */
+		 }
+		 
+		 
+		 var width = $("#width").val();  
+		 if( jQuery.isNumeric(width.trim()) == false){
+			 $("#err-width").html("The width must be number");
+			 err = true;
+			 if(err_field == '') { err_field = 'width'; }
+			 $("#width").attr('style', 'border-color:red'); 
+		 }else{
+			/* if(width.trim() < '0.5' && width.trim() != '0.5'){
+				 $("#err-width").html("The width must be greater than or equal to 0.5");
+				 err = true;
+				 if(err_field == '') { err_field = 'width'; }
+				 $("#width").attr('style', 'border-color:red');
+			 }else{ */
+				 $("#err-width").empty();
+			     $("#width").attr('style', 'border-color:'); 
+				 
+			/* } */
+			 
+		 }
+		 
+		 var height = $("#height").val();
+		 if( jQuery.isNumeric(height.trim()) == false){
+			 $("#err-height").html("The height must be number");
+			 err = true;
+			 if(err_field == '') { err_field = 'height'; }
+			 $("#height").attr('style', 'border-color:red'); 
+		 }else{
+			/*  if(height.trim() < '0.5' && height.trim() != '0.5'){
+				 $("#err-height").html("The height must be greater than or equal to 0.5");
+				 err = true;
+				 if(err_field == '') { err_field = 'height'; }
+				 $("#height").attr('style', 'border-color:red');
+			 }else{ */
+				 $("#err-height").empty();
+				 $("#height").attr('style', 'border-color:'); 
+			/* } */
+		 }
+		 
+		 
+		 
+		 if(err == true){
+			$("#"+err_field).filter(':visible').focus();
+		 }else{
+			 return true;
+		 }
+		 
+		
+		return false;
+	}else{
+		return true;
+	}
+}

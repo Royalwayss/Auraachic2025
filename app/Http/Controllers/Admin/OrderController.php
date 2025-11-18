@@ -16,6 +16,7 @@ use App\Models\Warranty;
 use App\Models\AwbNumber;
 use App\Models\WhatsappApi;
 use App\Models\WebSetting;
+use App\Models\ShipRocket;
 use App\Models\Mails;
 use Session;
 use Auth;
@@ -24,6 +25,8 @@ use DB;
 class OrderController extends Controller
 {
     public function orders(){
+	
+		
         Session::put('page','orders');
         $orders = Order::join('users','users.id','=','orders.user_id')->select('orders.*','users.email','users.name','users.mobile')->withCount(['order_products as total_items'=>function($query){
             $query->select(DB::raw('sum(product_qty)'));
@@ -47,7 +50,7 @@ class OrderController extends Controller
         return view('admin.orders.orders')->with(compact('orders','ordersModule'));
     }
 
-    public function orderDetails($id){
+    public function orderDetails($id){ 
         Session::put('page','orders');
         $orderDetails = Order::with(['order_address','getuser','order_products','histories'])->where('id',$id)->first();
         $orderDetails = json_decode(json_encode($orderDetails),true);
@@ -59,7 +62,14 @@ class OrderController extends Controller
         $model = 'Order'; // Fully qualified model name
         $prevId = findPreviousId($id, $model); // Start checking with $id - 1
         $nextId = findNextId($id, $model);  // Start checking with $id + 1
-        return view('admin.orders.order_details')->with(compact('title','orderDetails','getorderstatus','prevId','nextId'));
+		
+		
+		$updated_order_status =  [];
+		foreach($orderDetails['histories'] as $his){
+			$updated_order_status[] =  $his['order_status'];
+		}
+	
+        return view('admin.orders.order_details')->with(compact('title','orderDetails','getorderstatus','updated_order_status','prevId','nextId'));
     }
 
     public function viewOrderInvoice($id){
@@ -108,36 +118,63 @@ class OrderController extends Controller
 
     public function updateOrdersStatus(Request $request){
         if($request->isMethod('post')){
-            $data = $request->all();
-
+			$data = $request->all();
+			$orderid = $data['order_id'];
+            
             if($data['order_status'] == "Successful"){
-                $dtdcManifestResp = \App\Models\DtdcApi::createDTDCmanifest($data['order_id']);
-                if(isset($dtdcManifestResp['result']['data'][0]['success']) && $dtdcManifestResp['result']['data'][0]['success'] == 1){
-                        //Create AWB Number
+                    $update_order = [];
+				    $update_order['weight'] = $data['weight'];
+					$update_order['length'] = $data['length'];
+					$update_order['width'] = $data['width'];
+					$update_order['height'] = $data['height'];
+					/*$update_order['number_of_box'] = $data['number_of_box']; */
+					
+					Order::where('id',$orderid)->update($update_order); 
+				
+				$shiprocketResp = ShipRocket::CreateOrder($data['order_id']);  
+                if(isset($shiprocketResp['order_id']) && !empty($shiprocketResp['order_id'])){
+                        
+						$jsonshiprocketResp = json_encode($shiprocketResp);
+
+						//Create AWB Number
                         $awbno = new AwbNumber;
-                        $awbno->type = "dtdc";
-                        $awbno->awb_number = $dtdcManifestResp['result']['data'][0]['reference_number'];
+                        $awbno->type = "shiprocket";
+                        $awbno->awb_number = $shiprocketResp['order_id'];
                         $awbno->flag = "Y";
                         $awbno->save();
-                        $AwbNumber = $awbno->awb_number;
-                        $history = array('order_status'=>'Shipped','awb_number'=>$AwbNumber,'shipped_by'=>'DTDC','updated_by'=>Auth::guard('admin')->user()->id,'order_id'=>$data['order_id']);
+                        $AwbNumber = $awbno->awb_number; 
+                        $history = array('order_status'=>'Successful','awb_number'=>$AwbNumber,'shipped_by'=>'ShipRocket','updated_by'=>Auth::guard('admin')->user()->id,'order_id'=>$data['order_id']);
                         OrdersHistory::create($history);
-                        Order::where('id',$data['order_id'])->update(['order_status'=>'Shipped','awb_number'=>$AwbNumber,'delivery_method'=>'DTDC','manifest_request'=>$dtdcManifestResp['manifest_request'],'manifest_resp'=>$dtdcManifestResp['manifest_result']]);
+                        Order::where('id',$data['order_id'])->update(['order_status'=>'Successful','shiprocket_order_id'=>$AwbNumber,'awb_number'=>$AwbNumber,'delivery_method'=>'ShipRocket','shiprocket_resp'=>$jsonshiprocketResp ]);
 
-                        $orderDetails = Order::with(['getuser','order_products','order_address'])->where('id',$data['order_id'])->first();
-                        $orderDetails = json_decode(json_encode($orderDetails),true);
-                        $email = $orderDetails['getuser']['email'];
-                       
+							/*	
+							 $track_url = '';
+							 $order_tracking_result = ShipRocket::TrackOrder('1043844117'); pd($order_tracking_result);
+							 if(!empty($order_tracking_result)){
+							   $track_url = $order_tracking_result[0]['tracking_data']['track_url'];
+							 }
+								
+							*/
+					     DB::commit();
 
-                        DB::commit();
-                }else{
-                    DB::rollback();
-                    Order::where('id',$data['order_id'])->update(['manifest_request'=>$dtdcManifestResp['manifest_request'],'manifest_resp'=>$dtdcManifestResp['manifest_result']]);
-                    $reason = "";
-                    if(isset($dtdcManifestResp['result']['data'][0]['message'])){
-                        $reason = $dtdcManifestResp['result']['data'][0]['message'];
-                    }
-                    return redirect()->back()->with('error_message','Something went wrong. Please contact DTDC customer support. Reason:-'.$reason);
+                            if(env('MAIL_MODE') == "live"){
+                    
+								$email = $orderDetails['getuser']['email'];
+								$messageData = [
+									'orderDetails' => $orderDetails,
+									'order_status' =>$data['order_status']
+								];
+								if($data['order_status'] !=""){
+									$data['comments'] = '';
+								  Mails::order_status_update($data);
+								}
+							} 
+						 
+                        return redirect()->back()->with('success_message','Order Status has been updated Successfully!');
+                        
+                }else{ 
+                   
+                    return redirect()->back()->with('error_message','Something went wrong. Please contact Shiprocket customer support.');
                 }
             }else{
                 // Update Order Status
@@ -178,63 +215,13 @@ class OrderController extends Controller
                     }
                 } 
 
-                if($data['order_status']=="Cancelled"){
-                    // Send WhatsApp Message
-                    $template = "order_cancelled";
-                    $orderid_string = "#".$data['order_id'];
-                    $cancelled_date = date('d F Y h:ia');
-                    $parameters = array($orderid_string, $cancelled_date);
-                    $sendWhatsappMessage = WhatsappApi::sendWhatsappMessage($template, $orderDetails['order_address']['shipping_mobile'], $parameters);
-                }
+                
 
-                if($data['order_status']=="In Transit"){
-                    if($data['awb_number']==""){
-                        return redirect()->back()->with('error_message','Tracking Number is not generated yet. Please make sure Order is Shipped and Tracking Number is generated from DTDC.');
-                    }
-                    // Send WhatsApp Message
-                    $template = "order_on_the_way";
-                    $orderid_string = "#".$data['order_id'];
-                    $tracking_number = $data['awb_number'];
-                    $parameters = array($orderid_string, $tracking_number);
-                    $sendWhatsappMessage = WhatsappApi::sendWhatsappMessage($template, $orderDetails['order_address']['shipping_mobile'], $parameters);
-                }
-
-                if($data['order_status']=="Delivered"){
-                    // Send WhatsApp Message
-                    $template = "delivered";
-                    $orderid_string = "#".$data['order_id'];
-                    $delivered_date = date('d F Y h:ia');
-                    $order_total = "₹ ".round($orderDetails['grand_total'],2);
-                    $parameters = array($orderid_string, $delivered_date,$order_total);
-                    $sendWhatsappMessage = WhatsappApi::sendWhatsappMessage($template, $orderDetails['order_address']['shipping_mobile'], $parameters);
-                }
+                
 
             }
 
-            $orderDetails = Order::with(['getuser','order_products','order_address'])->where('id',$data['order_id'])->first();
-            $orderDetails = json_decode(json_encode($orderDetails),true);
-            $email = $orderDetails['getuser']['email'];
-            if($data['order_status']=="Shipped"){
-                if(env('MAIL_MODE') == "live"){
-                    $messageData = [
-                        'orderDetails' => $orderDetails
-                    ];
-                   
-                }
-            }else{
-                /*if(env('MAIL_MODE') == "live"){
-                    $messageData = [
-                        'orderDetails' => $orderDetails,
-                        'order_status' =>$data['order_status']
-                    ];
-                    if($data['order_status'] !=""){
-                        Mail::send('emails.order-status-email', $messageData, function($message) use ($email,$orderDetails){
-                            $message->to($email)->subject('Order Status Updated for Order #'.$orderDetails['id']);
-                        });
-                    }
-                }*/
-            }
-
+            
             return redirect()->back();   
             
         }
