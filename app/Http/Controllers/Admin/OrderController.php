@@ -25,8 +25,7 @@ use DB;
 class OrderController extends Controller
 {
     public function orders(){
-	
-		
+	  
         Session::put('page','orders');
         $orders = Order::join('users','users.id','=','orders.user_id')->select('orders.*','users.email','users.name','users.mobile')->withCount(['order_products as total_items'=>function($query){
             $query->select(DB::raw('sum(product_qty)'));

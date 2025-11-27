@@ -44,7 +44,7 @@ $categories = Category::getCategories($type='Front');
                     <div class="col-xl-2 col-lg-2 col-md-6 col-12 footer-widget">
                         <div class="footer-widget-inner">
                             <h4 class="footer-heading d-flex align-items-center justify-content-between">
-                                <span>Our Collections</span>
+                                <span>Products</span>
                                 <span class="d-md-none">
                                     <svg class="icon icon-dropdown" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1"
@@ -54,11 +54,35 @@ $categories = Category::getCategories($type='Front');
                                 </span>
                             </h4>
                             <ul class="footer-menu list-unstyled mb-0 d-md-block">
-                                 <li class="footer-menu-item"><a href="{{url('shop-all')}}">Shop All</a></li>
-								@foreach($categories as $category)
+                                @foreach($categories as $category)
                                 <li class="footer-menu-item"><a href="{{url($category['url'])}}">{{
                                         $category['category_name'] }}</a></li>
                                 @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="col-xl-2 col-lg-2 col-md-6 col-12 footer-widget">
+                        <div class="footer-widget-inner">
+                            <h4 class="footer-heading d-flex align-items-center justify-content-between">
+                                <span>Policies</span>
+                                <span class="d-md-none">
+                                    <svg class="icon icon-dropdown" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </span>
+                            </h4>
+                            <ul class="footer-menu list-unstyled mb-0 d-md-block">
+                                <li class="footer-menu-item"><a href="{{ url('privacy-policy') }}">Privacy Policy</a>
+                                </li>
+                                <li class="footer-menu-item"><a href="{{ url('term-and-conditions') }}">Terms &
+                                        Conditions</a></li>
+                                <li class="footer-menu-item"><a href="{{ url('shipping-policy') }}">Shipping Policy</a>
+                                </li>
+                                <li class="footer-menu-item"><a
+                                        href="{{ url('cancellation-and-refunds	') }}">Cancellation and
+                                        Refunds </a></li>
                             </ul>
                         </div>
                     </div>
@@ -76,8 +100,8 @@ $categories = Category::getCategories($type='Front');
                             </h4>
                             <ul class="footer-menu list-unstyled mb-0 d-md-block">
                                 <li class="footer-menu-item">
-                                    <a href="mailto:support@auraachic.in">
-                                        <i class="fa-solid fa-envelope me-2"></i> support@auraachic.in
+                                    <a href="mailto:Support@auraachic.in">
+                                        <i class="fa-solid fa-envelope me-2"></i> Support@auraachic.in
                                     </a>
                                 </li>
                                 <li class="footer-menu-item">
@@ -94,7 +118,8 @@ $categories = Category::getCategories($type='Front');
                             </ul>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-5 col-md-6 col-12 footer-widget">
+                   
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 footer-widget">
                         <div class="footer-widget-inner">
                             <h4 class="footer-heading d-flex align-items-center justify-content-between">
                                 <span>SUBSCRIBE</span>
@@ -121,14 +146,7 @@ $categories = Category::getCategories($type='Front');
     <div class="footer-bottom">
         <div class="container">
             <div
-                class="footer-bottom-inner d-flex flex-wrap justify-content-md-between justify-content-center align-items-center">
-                <ul class="footer-bottom-menu list-unstyled d-flex flex-wrap align-items-center mb-0">
-                    <li class="footer-menu-item"><a href="{{ url('privacy-policy') }}">Privacy Policy</a></li>
-                    <li class="footer-menu-item"><a href="{{ url('term-and-conditions') }}">Terms & Conditions</a></li>
-                    <li class="footer-menu-item"><a href="{{ url('shipping-policy') }}">Shipping Policy</a></li>
-                    <li class="footer-menu-item"><a href="{{ url('cancellation-and-refunds	') }}">Cancellation and
-                            Refunds </a></li>
-                </ul>
+                class="footer-bottom-inner text-center">
                 <p class="copyright footer-text">©<span class="current-year">{{ date('Y') }}</span> Aurrachic All Right
                     Reserved.</p>
             </div>
@@ -147,7 +165,7 @@ $categories = Category::getCategories($type='Front');
 
 <!-- whatsapp button start -->
 <div class="whatsapp-icon">
-    <a href="https://wa.me/+919317733723" rel="nofollow" target="_blank">
+    <a href="https://wa.me/+918010408050" rel="nofollow" target="_blank">
         <img src="{{ asset('front/assets/img/icon/whatsapp.png') }}" alt="WhatsApp" title="WhatsApp" class="img-fluid">
     </a>
 </div>

@@ -68,6 +68,8 @@ class ShipRocket extends Model
 				$param2['billing_phone']=$billing_address['shipping_mobile'];
 				$param2['shipping_is_billing']=true; 
 				
+				
+				
 				foreach($products as $product_key=>$product){
 					
 					$param2['order_items'][$product_key]=
@@ -89,7 +91,10 @@ class ShipRocket extends Model
 				}else{
 					$payment_method = 'Prepaid';
 				}
-			
+				
+				
+				
+				
 				$param2['payment_method']=$payment_method;
 				$param2['shipping_charges']=$orderDetails['shipping_charges']; 
 				$param2['giftwrap_charges']= 0;; 
@@ -129,7 +134,7 @@ class ShipRocket extends Model
 				curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $req);
 				$result21 = curl_exec($curl);
-				$result22=json_decode($result21, true); pd($result21);
+				$result22=json_decode($result21, true); 
 				 curl_close($curl); 
                  return $result22;     
 				}else{
