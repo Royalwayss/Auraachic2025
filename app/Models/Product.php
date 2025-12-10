@@ -56,6 +56,10 @@ class Product extends Model
     public function attributes(){
         return $this->hasMany('App\Models\ProductsAttribute')->orderby('sort','ASC');
     }
+	
+	public function product_attributes(){
+        return $this->hasMany('App\Models\ProductsAttribute')->where('stock','>',0)->where('status','1')->orderby('sort','ASC');
+    }
 
     public static function CheckProduct($id,$product_url=''){
         $productCount = Product::join('categories','categories.id','=','products.category_id')->where('products.id',$id);

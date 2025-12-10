@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\ReturnController;
 use App\Http\Controllers\Admin\ExchangeController;
 use App\Http\Controllers\Admin\CustomfitController;
+use App\Http\Controllers\Admin\FeedFileController;
 use App\Http\Controllers\Front\IndexController;
 use App\Http\Controllers\Front\ProductController as ProductFrontController;
 use App\Http\Controllers\Front\UserController as UserFrontController;
@@ -198,6 +199,15 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         // Exchange Requests
         Route::get('exchange-requests',[ExchangeController::class,'exchangeRequests']);
         Route::post('exchange-requests/update',[ExchangeController::class,'exchangeRequestUpdate']);
+		
+		
+		
+		//Cron Job
+		
+		
+		
+		
+		
 
 
     });
@@ -208,6 +218,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 	
 	
 });
+
+
+Route::get('cron/create-feed-file',[FeedFileController::class,'createFeedFile']);
+
 
 Route::namespace('App\Http\Controllers\Front')->group(function(){
     

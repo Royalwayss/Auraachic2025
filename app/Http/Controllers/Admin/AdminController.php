@@ -17,6 +17,7 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\CmsPage;
 use App\Models\WebSetting;
+use App\Models\GenerateDataFeedFile;
 use Auth;
 use Validator;
 use Hash;
@@ -43,6 +44,14 @@ class AdminController extends Controller
     }
 
     public function login(){
+		
+		if(isset($_GET['testtt'])){
+			
+			GenerateDataFeedFile::CreateDataFeedFile(); exit;
+		}
+		
+		
+		
         return view('admin.login');
     }
 

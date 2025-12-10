@@ -105,7 +105,7 @@ $RouteName = Route::currentRouteName();
                         </div>
                      </li>
                      <li class="menu-list-item nav-item"><a class="nav-link @if($RouteName == 'newarrival') active @endif" href="{{ route('newarrival') }}">New Arrivals</a></li>
-                     <li class="menu-list-item nav-item"><a class="nav-link" href="javascript:;">Collection</a></li>
+                    <!-- <li class="menu-list-item nav-item"><a class="nav-link" href="javascript:;">Collection</a></li> -->
                      <li class="menu-list-item nav-item"><a class="nav-link" href="{{ route('contactus') }}">Contact</a></li>
                   </ul>
                </nav>
@@ -225,7 +225,7 @@ $RouteName = Route::currentRouteName();
                   </div>
                </li>
                <li class="menu-list-item nav-item"><a class="nav-link" href="{{ route('newarrival') }}">New Arrivals</a></li>
-               <li class="menu-list-item nav-item"><a class="nav-link" href="javascript:;">Collections</a></li>
+              <!-- <li class="menu-list-item nav-item"><a class="nav-link" href="javascript:;">Collections</a></li>-->
                <li class="menu-list-item nav-item"><a class="nav-link" href="{{ route('contactus') }}">Contact</a></li>
             </ul>
          </nav>
